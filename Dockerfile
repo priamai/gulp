@@ -38,7 +38,7 @@ RUN echo "[.] GULP version: ${_VERSION}" && sed -i "s/version = .*/version = \"$
 
 RUN if [ -s /app/pyproject.toml]; then \
         # install from project
-        echo "[.] Patching pyproject.toml to remove dependencies" && \
+        echo "[.] Installing via project" && \
         pip3 install --no-cache-dir -e . ; \       
     else \
         echo "[.] No project found installing requirements" && \   
