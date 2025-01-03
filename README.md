@@ -157,6 +157,12 @@ get it [here](https://github.com/mentat-is/gulpui-web) !
 
 > currently, we recommend to install from sources!
 
+## docker 
+
+Run this command to build the latest version:
+
+> docker build -t gulp-core:0.1 --build-arg _VERSION=0.1 -f Dockerfile .
+
 ## test
 
 [read here](./docs/Testing%20Plugins.md)

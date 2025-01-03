@@ -36,17 +36,13 @@ COPY ./requirements.txt* /app/requirements.txt
 # set version passed as build argument
 RUN echo "[.] GULP version: ${_VERSION}" && sed -i "s/version = .*/version = \"$(date +'%Y%m%d')+${_VERSION}\"/" /app/pyproject.toml
 
-RUN if [ -s /app/requirements.txt ]; then \
-        # we patch the pyproject.toml to remove the dependencies so we can install the
-        # frozen requirements from the host
+RUN if [ -s /app/pyproject.toml]; then \
+        # install from project
         echo "[.] Patching pyproject.toml to remove dependencies" && \
-        sed -i '/dependencies = \[/,/^\]/d' /app/pyproject.toml &&\
-        echo "[.] Installing frozen requirements" &&\
-        pip3 install -r ./requirements.txt && \
-        pip3 install --no-cache-dir . ; \       
+        pip3 install --no-cache-dir -e . ; \       
     else \
-        echo "[.] No requirements.txt found, default (download most updated pip packages)" && \   
-        pip3 install --no-cache-dir . ; \       
+        echo "[.] No project found installing requirements" && \   
+        pip3 install --no-cache-dir -r requirements.txt ; \       
     fi
 
 # show python info and installed package list
